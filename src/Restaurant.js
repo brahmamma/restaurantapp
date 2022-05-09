@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { tablesmock } from "./tables.mock";
 import "./App.css";
 import { tab } from "@testing-library/user-event/dist/tab";
+import { setMaxListeners } from "nodemailer/lib/mailer";
 function Restaurant(props) {
   const [tables, settables] = useState(tablesmock);
+  
   function toggleStatus(index) {
     var temp = [...tables];
     temp[index].status = temp[index].status === "FREE" ? "OCCUPIED" : "FREE";
     settables([...tables]);
+  
   }
   return (
     <div class="container d-flex  flex-wrap  justify-content-around">
@@ -34,11 +37,12 @@ function Restaurant(props) {
               </div>
               <div class="card-body">
                 <h4>Status:{table.status === "FREE" ? "FREE" : "Occupy"}</h4>
+                <h4>Occupied</h4>
               </div>
               <div class="card-footer">
                 <button
                   onClick={() => {
-                    toggleStatus(i);
+                    toggleStatus(i)
                   }}
                 >
                   Make it {table.status !== "FREE" ? "FREE" : "Occupied"}
